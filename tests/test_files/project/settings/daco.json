@@ -8,5 +8,5 @@
       ],
     "cobol-lsp.cpy-manager.paths-dsn": [],
     "editor.snippetSuggestions": "top",
-     "cobol-lsp.dialects": ["DaCo"]
+    "cobol-lsp.dialects": ["IDMS", "DaCo"]
 }
