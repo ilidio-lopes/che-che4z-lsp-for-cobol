@@ -736,7 +736,12 @@ linkageSection
 // -- local storage section ----------------------------------
 
 localStorageSection
-   : LOCAL_STORAGE SECTION DOT_FS dataDescriptionEntries
+   : LOCAL_STORAGE SECTION DOT_FS dataDescriptionEntryForLocalStorageSection*
+   ;
+
+dataDescriptionEntryForLocalStorageSection
+   : execSqlStatementInLocalStorage
+   | dataDescriptionEntry
    ;
 
 dataDescriptionEntries
@@ -1386,6 +1391,10 @@ execSqlStatementInProcedureDivision
    ;
 
 execSqlStatementInWorkingStorage
+   : execSqlStatement DOT_FS?
+   ;
+
+execSqlStatementInLocalStorage
    : execSqlStatement DOT_FS?
    ;
 
@@ -2515,7 +2524,7 @@ cobolKeywords
    : ADDRESS | BOTTOM | COUNT | CR | FIELD | FIRST | MMDDYYYY | PRINTER | DAY | TIME | DATE | DAY_OF_WEEK
    | REMARKS | RESUME | TIMER | TODAYS_DATE | TODAYS_NAME | TOP | YEAR | YYYYDDD | YYYYMMDD | WHEN_COMPILED
    | DISK | KEYBOARD | PORT | READER | REMOTE | VIRTUAL | LIBRARY | DEFINITION | PARSE | BOOL | ESCAPE | INITIALIZED
-   | LOC | BYTITLE | BYFUNCTION | ABORT | ORDERLY | ASSOCIATED_DATA | ASSOCIATED_DATA_LENGTH
+   | LOC | BYTITLE | BYFUNCTION | ABORT | ORDERLY | ASSOCIATED_DATA | ASSOCIATED_DATA_LENGTH | CLOSE
    ;
 
 cobolCompilerDirectivesKeywords
