@@ -25,7 +25,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Test DB2 identifier length validation for table names and column names.
- * DB2 identifiers are limited to 128 bytes (not characters).
  */
 class TestSqlIdentifierLength {
 
@@ -34,30 +33,17 @@ class TestSqlIdentifierLength {
                   + "       PROGRAM-ID. HELLO-SQL.\n"
                   + "       DATA DIVISION.\n"
                   + "       WORKING-STORAGE SECTION.\n"
-                  + "       PROCEDURE DIVISION.\n";
-
-  private static String repeat(String str, int count) {
-    StringBuilder sb = new StringBuilder();
-    for (int i = 0; i < count; i++) {
-      sb.append(str);
-    }
-    return sb.toString();
-  }
+                  + "       PROCEDURE DIVISION.\n"
+                  + "           EXEC SQL\n"
+                  + "             DROP TABLE ABCDEFGHIJKLMNOPQRSTUVWXYZ012345678ggggggggk\n"
+                  + "      -    HIJKLMNOPQRSTUVWXYZ01234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ1\n"
+                  + "      -    234567890ABCDEFGHIJKLMNOPsfsf{|1}\n"
+                  + "           END-EXEC.";
 
   @Test
   void testTableNameExceeds128Bytes() {
-    // Create a table name that exceeds 128 bytes (129 characters)
-    // Use proper COBOL continuation line format
-    String sql =
-            TEXT
-                    + "           EXEC SQL\n"
-                    + "             DROP TABLE {ABCDEFGHIJKLMNOPQRSTUVWXYZ01234567890ABCDEFG\n"
-                    + "      -    HIJKLMNOPQRSTUVWXYZ01234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ01\n"
-                    + "      -    234567890ABCDEFGHIJKLMNOP|1}\n"
-                    + "           END-EXEC.";
-
     UseCaseEngine.runTest(
-            sql,
+            TEXT,
             ImmutableList.of(),
             ImmutableMap.of(
                     "1",

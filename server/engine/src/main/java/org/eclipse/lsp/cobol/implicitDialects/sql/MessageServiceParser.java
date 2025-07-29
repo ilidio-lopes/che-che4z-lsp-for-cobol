@@ -163,19 +163,6 @@ public abstract class MessageServiceParser extends Parser {
   }
 
   /**
-   * Validate a string byte length and throw an error if it exceeds the limit
-   *
-   * @param input string to check
-   * @param objectType type of the object to be passed as a message argument
-   * @param validByteLength maximum allowed byte length
-   */
-  protected void validateByteLength(String input, String objectType, Integer validByteLength) {
-    if (input != null && input.getBytes(java.nio.charset.StandardCharsets.UTF_8).length > validByteLength) {
-      notifyError("parsers.maxLength", objectType, validByteLength.toString());
-    }
-  }
-
-  /**
    * Validate a string length without first and the last symbol and throw an error if it is
    * incorrect
    *
